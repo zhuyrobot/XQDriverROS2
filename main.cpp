@@ -40,7 +40,7 @@ int main(int argc, char **argv)
 
     std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("xqserial_server");
     // 
-    //»ñÈ¡´®¿Ú²ÎÊý
+    //ï¿½ï¿½È¡ï¿½ï¿½ï¿½Ú²ï¿½ï¿½ï¿½
     std::string port;
     //ros::param::param<std::string>("~port", port, "/dev/ttyUSB0");
 	node->declare_parameter<std::string>("~port", "/dev/ttyUSB0");
@@ -59,7 +59,7 @@ int main(int argc, char **argv)
     }
     else
     {
-        if (ioXQ.open("COM2"))
+        if (ioXQ.open("/dev/ttyUSB0"))
         {
             spdlog::info("{} openned with success", ioXQ.name());
             //timerCarStatus->start(200);
@@ -70,7 +70,7 @@ int main(int argc, char **argv)
         }
     }
 
-    //»ñÈ¡Ð¡³µ»úÐµ²ÎÊý
+    //ï¿½ï¿½È¡Ð¡ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½
     double separation = 0, radius = 0;
     bool DebugFlag = false;
     //ros::param::param<double>("~wheel_separation", separation, 0.37);
@@ -87,7 +87,7 @@ int main(int argc, char **argv)
 
 
 
-    //»ñÈ¡Ð¡³µ¿ØÖÆ²ÎÊý
+    //ï¿½ï¿½È¡Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Æ²ï¿½ï¿½ï¿½
     double max_speed, r_min;
     max_speed = 2.0;
     r_min = 0.25;
@@ -105,7 +105,7 @@ int main(int argc, char **argv)
 	node->declare_parameter<std::string>("~cmd_topic", "cmd_vel");
 	node->get_parameter<std::string>("~cmd_topic",cmd_topic);
      
-    // ³õÊ¼»¯log·¢²¼ÕßºÍÓïÒô·¢²¼Õß
+    // ï¿½ï¿½Ê¼ï¿½ï¿½logï¿½ï¿½ï¿½ï¿½ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     //ros::NodeHandle mNH;
     //ros::Publisher log_pub = mNH.advertise<xiaoqiang_log::LogRecord>("/xiaoqiang_log", 1, true);
     //ros::Publisher audio_pub = mNH.advertise<std_msgs::String>("/xiaoqiang_tts/text", 1, true);
@@ -134,8 +134,8 @@ int main(int argc, char **argv)
         //ioXQ.write(resetCmd, 5);
         //ros::Duration(0.5).sleep();
 
-        //ros::Rate r(100); //·¢²¼ÖÜÆÚÎª50hz
-        //´´½¨Ò»¸ö100HZµÄË¯ÃßÑÓÊ±
+        //ros::Rate r(100); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª50hz
+        //ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½100HZï¿½ï¿½Ë¯ï¿½ï¿½ï¿½ï¿½Ê±
         rclcpp::WallRate loop_rate(100.0);
 
         while (rclcpp::ok())
@@ -146,9 +146,8 @@ int main(int argc, char **argv)
                 RCLCPP_INFO(node->get_logger(),"Error: serial port closed unexpectedly");
                 break;
             }
-            xq_status.Refresh(); //¶¨Ê±·¢²¼×´Ì¬
+            xq_status.Refresh(); //ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½×´Ì¬
             loop_rate.sleep();
-            cout<<"run"<<endl;
         }
 
     quit:
@@ -159,22 +158,22 @@ int main(int argc, char **argv)
     {
         //ROS_ERROR_STREAM("Open " << port << " failed.");
         //ROS_ERROR_STREAM("Exception: " << e.what());
-        // ¼ì²é´®¿ÚÉè±¸ÊÇ·ñ´æÔÚ
+        // ï¿½ï¿½é´®ï¿½ï¿½ï¿½è±¸ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
         if (!exists(port))
         {
-            //// ·¢ËÍÓïÒôÌáÊ¾ÏûÏ¢
+            //// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ï¢
             //std_msgs::String audio_msg;
-            //audio_msg.data = "Î´·¢ÏÖµ×ÅÌ´®¿Ú£¬Çë¼ì²é´®¿ÚÁ¬½Ó";
+            //audio_msg.data = "Î´ï¿½ï¿½ï¿½Öµï¿½ï¿½Ì´ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½é´®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
             //audio_pub.publish(audio_msg);
             //xiaoqiang_log::LogRecord log_record;
             //log_record.collection_name = "exception";
             //log_record.stamp = ros::Time::now();
             //Json::Value record;
             //record["type"] = "HARDWARE_ERROR";
-            //record["info"] = "µ×ÅÌ´®¿ÚÉè±¸Î´ÕÒµ½: " + port;
+            //record["info"] = "ï¿½ï¿½ï¿½Ì´ï¿½ï¿½ï¿½ï¿½è±¸Î´ï¿½Òµï¿½: " + port;
             //Json::FastWriter fastWriter;
             //log_record.record = fastWriter.write(record);
-            //// ·¢ËÍÈÕÖ¾ÏûÏ¢
+            //// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½Ï¢
             //log_pub.publish(log_record);
         }
         //ros::shutdown();

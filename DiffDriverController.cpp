@@ -42,22 +42,25 @@ void DiffDriverController::run()
     //}
     //
   
+    for (;;)
+    {
+        cout<<"run"<<endl;
+        rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub;
+        sub = nodeHandler_->create_subscription<geometry_msgs::msg::Twist>(cmd_topic,10,std::bind(&DiffDriverController::sendcmd, this, std::placeholders::_1));
     
-    rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr sub;
-    sub = nodeHandler_->create_subscription<geometry_msgs::msg::Twist>(cmd_topic,10,std::bind(&DiffDriverController::sendcmd, this, std::placeholders::_1));
+        rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr sub2;
+        sub2 = nodeHandler_->create_subscription<std_msgs::msg::Bool>("/imu_cal",10,std::bind(&DiffDriverController::imuCalibration, this, std::placeholders::_1));
     
-    rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr sub2;
-    sub2 = nodeHandler_->create_subscription<std_msgs::msg::Bool>("/imu_cal",10,std::bind(&DiffDriverController::imuCalibration, this, std::placeholders::_1));
+        rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr sub3;
+        sub3 = nodeHandler_->create_subscription<std_msgs::msg::Bool>("/global_move_flag",10,std::bind(&DiffDriverController::updateMoveFlag, this, std::placeholders::_1));
     
-    rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr sub3;
-    sub3 = nodeHandler_->create_subscription<std_msgs::msg::Bool>("/global_move_flag",10,std::bind(&DiffDriverController::updateMoveFlag, this, std::placeholders::_1));
-    
-    rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr sub4;
-    sub4 = nodeHandler_->create_subscription<std_msgs::msg::Bool>("/barDetectFlag",10,std::bind(&DiffDriverController::updateBarDetectFlag, this, std::placeholders::_1));
+        rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr sub4;
+        sub4 = nodeHandler_->create_subscription<std_msgs::msg::Bool>("/barDetectFlag",10,std::bind(&DiffDriverController::updateBarDetectFlag, this, std::placeholders::_1));
     
     //rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr sub5;
     //sub5 = nodeHandler->create_subscription<std_msgs::msg::Int8>("/galileo/status",10,std::bind(&DiffDriverController::UpdateNavStatus, this, std::placeholders::_1));
-
+    }
+    //rclcpp::spin(nodeHandler_);
 }
 void DiffDriverController::updateMoveFlag(const std_msgs::msg::Bool::SharedPtr moveFlag)
 {
