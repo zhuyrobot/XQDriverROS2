@@ -38,7 +38,7 @@ int main(int argc, char **argv)
        
 
 
-    std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("xqserial_server");
+    std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("xqserial_server_node");
     // 
     //��ȡ���ڲ���
     std::string port;
