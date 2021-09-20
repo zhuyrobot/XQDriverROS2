@@ -41,6 +41,12 @@ class DiffDriverController
     //boost::mutex mStausMutex_;
     //galileo_serial_server::GalileoStatus galileoStatus_;
     float R_min_;
+
+    rclcpp::Subscription<geometry_msgs::msg::Twist>::SharedPtr cmd_topicSub;
+    rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr imu_calSub;
+    rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr global_move_flagSub;
+    rclcpp::Subscription<std_msgs::msg::Bool>::SharedPtr barDetectFlagSub;
+
     std::shared_ptr<rclcpp::Node> nodeHandler_;
 };
 

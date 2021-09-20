@@ -148,6 +148,7 @@ int main(int argc, char **argv)
             }
             xq_status.Refresh(); //��ʱ����״̬
             loop_rate.sleep();
+            rclcpp::spin_some(node);
         }
 
     quit:
@@ -181,7 +182,7 @@ int main(int argc, char **argv)
         return 1;
     }
 
-    rclcpp::spin(node);
+    //rclcpp::spin(node);
 
     //ros::shutdown();
     rclcpp::shutdown();
