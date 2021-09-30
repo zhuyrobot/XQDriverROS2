@@ -64,6 +64,8 @@ void StatusPublisher::StatusPublisher1()
   //base_time_ = ros::Time::now().toSec();
   //base_time_ = mNH->now().seconds();
   //current_time = mNH->now();
+  rclcpp::Clock clock;
+  current_time = clock.now();
 }
 
 StatusPublisher::StatusPublisher(double separation, double radius, XQ4IO* sta_serial_, std::shared_ptr<rclcpp::Node> nodeHandler)
@@ -78,10 +80,12 @@ StatusPublisher::StatusPublisher(double separation, double radius, XQ4IO* sta_se
   mStatusFlagPub = nodeHandler_->create_publisher<std_msgs::msg::Int32>("xqserial_server/StatusFlag", 10);
   mTwistPub = nodeHandler_->create_publisher<geometry_msgs::msg::Twist>("xqserial_server/Twist", 10);
   mPowerPub = nodeHandler_->create_publisher<std_msgs::msg::Float64>("xqserial_server/Power", 10);
-  mOdomPub = nodeHandler_->create_publisher<nav_msgs::msg::Odometry>("xqserial_server/Odom", 10);
+  //mOdomPub = nodeHandler_->create_publisher<nav_msgs::msg::Odometry>("xqserial_server/Odom", 10);
+    mOdomPub = nodeHandler_->create_publisher<nav_msgs::msg::Odometry>("/odom", 10);
   pub_barpoint_cloud_ = nodeHandler_->create_publisher<sensor_msgs::msg::PointCloud2>("kinect/barpoints", 10);
   pub_clearpoint_cloud_ = nodeHandler_->create_publisher<sensor_msgs::msg::PointCloud2>("kinect/clearpoints", 10);
-  mIMUPub = nodeHandler_->create_publisher<sensor_msgs::msg::Imu>("xqserial_server/IMU", 10);
+  //mIMUPub = nodeHandler_->create_publisher<sensor_msgs::msg::Imu>("xqserial_server/IMU", 10);
+    mIMUPub = nodeHandler_->create_publisher<sensor_msgs::msg::Imu>("/imu", 10);
 }
 
 void StatusPublisher::Update()
@@ -101,6 +105,7 @@ void StatusPublisher::Refresh()
 {
   //boost::mutex::scoped_lock lock(mMutex);
   lock_guard<std::mutex> lock(mMutex);
+
   static double theta_last = 0.0;
   static unsigned int ii = 0;
   static bool theta_updateflag = false;
@@ -121,6 +126,9 @@ void StatusPublisher::Refresh()
     // Time
     //ros::Time current_time;
     //rclcpp::Time current_time;
+
+    rclcpp::Clock clock;
+    current_time = clock.now();
 
     if (msg->status == 0)
     {
@@ -381,7 +389,7 @@ void StatusPublisher::Refresh()
     q_imu.setRPY(0, 0, msg->theta / 180.0 * PI);
     //CarIMU.header.stamp = current_time;
     CarIMU.header.stamp = current_time;
-    CarIMU.header.frame_id = "imu";
+    CarIMU.header.frame_id = "imu_link";
     CarIMU.orientation.x = q_imu.x();
     CarIMU.orientation.y = q_imu.y();
     CarIMU.orientation.z = q_imu.z();

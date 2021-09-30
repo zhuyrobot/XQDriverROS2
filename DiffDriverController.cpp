@@ -47,9 +47,9 @@ void DiffDriverController::run()
         cout<<"run"<<endl;
         cmd_topicSub = nodeHandler_->create_subscription<geometry_msgs::msg::Twist>(cmd_topic,10,std::bind(&DiffDriverController::sendcmd, this, std::placeholders::_1));
 
-        imu_calSub = nodeHandler_->create_subscription<std_msgs::msg::Bool>("/imu_cal",10,std::bind(&DiffDriverController::imuCalibration, this, std::placeholders::_1));
-        global_move_flagSub = nodeHandler_->create_subscription<std_msgs::msg::Bool>("/global_move_flag",10,std::bind(&DiffDriverController::updateMoveFlag, this, std::placeholders::_1));
-        barDetectFlagSub = nodeHandler_->create_subscription<std_msgs::msg::Bool>("/barDetectFlag",10,std::bind(&DiffDriverController::updateBarDetectFlag, this, std::placeholders::_1));
+        imu_calSub = nodeHandler_->create_subscription<std_msgs::msg::Bool>("imu_cal",10,std::bind(&DiffDriverController::imuCalibration, this, std::placeholders::_1));
+        global_move_flagSub = nodeHandler_->create_subscription<std_msgs::msg::Bool>("global_move_flag",10,std::bind(&DiffDriverController::updateMoveFlag, this, std::placeholders::_1));
+        barDetectFlagSub = nodeHandler_->create_subscription<std_msgs::msg::Bool>("barDetectFlag",10,std::bind(&DiffDriverController::updateBarDetectFlag, this, std::placeholders::_1));
 
     //rclcpp::Subscription<sensor_msgs::msg::Image>::SharedPtr sub5;
     //sub5 = nodeHandler->create_subscription<std_msgs::msg::Int8>("/galileo/status",10,std::bind(&DiffDriverController::UpdateNavStatus, this, std::placeholders::_1));

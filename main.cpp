@@ -37,7 +37,7 @@ int main(int argc, char **argv)
     rclcpp::init(argc, argv);
        
 
-
+#if 1
     std::shared_ptr<rclcpp::Node> node = rclcpp::Node::make_shared("xqserial_server_node");
     // 
     //��ȡ���ڲ���
@@ -181,8 +181,8 @@ int main(int argc, char **argv)
         rclcpp::shutdown();
         return 1;
     }
-
-    //rclcpp::spin(node);
+#endif
+    rclcpp::spin(node);
 
     //ros::shutdown();
     rclcpp::shutdown();

@@ -5,7 +5,7 @@ def generate_launch_description():
     return LaunchDescription([
         Node(
             package='xqdriver_ros2',
-            namespace='xqserial_server',
+            namespace='',
             executable='xqserial_server_node',
             name='xqserial_server_node_launch',
             output='screen'
