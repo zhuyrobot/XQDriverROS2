@@ -8,7 +8,7 @@
     <link name="base_link">
 
       <inertial>
-        <pose>-0.032 0 0.070 0 0 0</pose>
+        <pose>-0.158 -0.00385 0.047 0 0 0</pose>
         <inertia>
           <ixx>0.001</ixx>
           <ixy>0.000</ixy>
@@ -21,7 +21,7 @@
       </inertial>
 
       <collision name="base_collision">
-        <pose>-0.032 0 0.070 0 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
           <box>
             <size>0.140 0.140 0.140</size>
@@ -30,7 +30,7 @@
       </collision>
 
       <visual name="base_visual">
-        <pose>-0.032 0 0 0 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <uri>model://turtlebot3_burger/meshes/burger_base.dae</uri>
@@ -46,7 +46,7 @@
 
     <link name="base_scan">
       <inertial>
-        <pose>-0.020 0 0.161 0 0 0</pose>
+        <pose>-0.00027 -0.0099 -7.10049019581049E-10 0 0 0</pose>
         <inertia>
           <ixx>0.001</ixx>
           <ixy>0.000</ixy>
@@ -59,7 +59,7 @@
       </inertial>
 
       <collision name="lidar_sensor_collision">
-        <pose>-0.020 0 0.161 0 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
           <cylinder>
             <radius>0.0508</radius>
@@ -69,7 +69,7 @@
       </collision>
 
       <visual name="lidar_sensor_visual">
-        <pose>-0.032 0 0.171 0 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <uri>model://turtlebot3_burger/meshes/lds.dae</uri>
@@ -82,7 +82,7 @@
     <link name="wheel_left_link">
 
       <inertial>
-        <pose>0 0.08 0.023 -1.57 0 0</pose>
+        <pose>6.94232664756322E-05 9.31748289634271E-11 0.0293136663265147 0 0 0</pose>
         <inertia>
           <ixx>0.001</ixx>
           <ixy>0.000</ixy>
@@ -95,7 +95,7 @@
       </inertial>
 
       <collision name="wheel_left_collision">
-        <pose>0 0.08 0.023 -1.57 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
           <cylinder>
             <radius>0.033</radius>
@@ -127,7 +127,7 @@
       </collision>
 
       <visual name="wheel_left_visual">
-        <pose>0 0.08 0.023 0 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <uri>model://turtlebot3_burger/meshes/tire.dae</uri>
@@ -140,7 +140,7 @@
     <link name="wheel_right_link">
 
       <inertial>
-        <pose>0.0 -0.08 0.023 -1.57 0 0</pose>
+        <pose>6.94232664757398E-05 9.3174912230154E-11 0.0293136663265149 0 0 0</pose>
         <inertia>
           <ixx>0.001</ixx>
           <ixy>0.000</ixy>
@@ -153,7 +153,7 @@
       </inertial>
 
       <collision name="wheel_right_collision">
-        <pose>0.0 -0.08 0.023 -1.57 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
           <cylinder>
             <radius>0.033</radius>
@@ -185,7 +185,7 @@
       </collision>
 
       <visual name="wheel_right_visual">
-        <pose>0.0 -0.08 0.023 0 0 0</pose>
+        <pose>0 0 0 0 0 0</pose>
         <geometry>
           <mesh>
             <uri>model://turtlebot3_burger/meshes/tire.dae</uri>
@@ -196,7 +196,7 @@
     </link>
 
     <link name='caster_back_link'>
-      <pose>-0.081 0 -0.004 0 0 0</pose>
+      <pose>-0.0175661121211732 -0.039912714651577 -2.47341047643346E-09 0 0 0</pose>
       <inertial>
         <mass>0.001</mass>
         <inertia>
@@ -238,7 +238,7 @@
     <joint name="wheel_left_joint" type="revolute">
       <parent>base_link</parent>
       <child>wheel_left_link</child>
-      <pose>0.0 0.08 0.023 -1.57 0 0</pose>
+      <pose>0 0.149887301627792 -0.0599999999999983 -1.5707963267949 0.357463595053736 1.22790071016839E-29</pose>
       <axis>
         <xyz>0 0 1</xyz>
       </axis>
@@ -247,9 +247,9 @@
     <joint name="wheel_right_joint" type="revolute">
       <parent>base_link</parent>
       <child>wheel_right_link</child>
-      <pose>0.0 -0.08 0.023 -1.57 0 0</pose>
+      <pose>0 -0.150112698372207 -0.06 1.57079632679477 1.52790873038023 -1.29473733419683E-13</pose>
       <axis>
-        <xyz>0 0 1</xyz>
+        <xyz>0 0 -1</xyz>
       </axis>
     </joint>
 
@@ -270,9 +270,9 @@
     <joint name="lidar_joint" type="fixed">
       <parent>base_link</parent>
       <child>base_scan</child>
-      <pose>-0.032 0 0.171 0 0 0</pose>
+      <pose>-0.258786796564404 6.46265772448196E-05 0.305000000000001 -1.5707963267949 -3.15213658012586E-15 -0.452067123629806</pose>
       <axis>
-        <xyz>0 0 1</xyz>
+        <xyz>0 1 0</xyz>
       </axis>
     </joint>     
   </model>
