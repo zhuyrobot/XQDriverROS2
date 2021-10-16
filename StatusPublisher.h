@@ -100,7 +100,7 @@ class StatusPublisher
 
     //boost::mutex mMutex;
     std::mutex mMutex;
-    double base_time_;
+    rclcpp::Time base_time_;
     rclcpp::Time current_time;
 
     XQ4IO *sta_serial;

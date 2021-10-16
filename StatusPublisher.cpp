@@ -65,7 +65,8 @@ void StatusPublisher::StatusPublisher1()
   //base_time_ = mNH->now().seconds();
   //current_time = mNH->now();
   rclcpp::Clock clock;
-  current_time = clock.now();
+  base_time_ = clock.now();
+  current_time = base_time_;
 }
 
 StatusPublisher::StatusPublisher(double separation, double radius, XQ4IO* sta_serial_, std::shared_ptr<rclcpp::Node> nodeHandler)
@@ -95,6 +96,9 @@ void StatusPublisher::Update()
     {
         sta_serial->getStatus(&msg);
         //if (msg != 0) mbUpdated = true;
+		rclcpp::Clock clock;
+        base_time_ = clock.now();
+		
         cout << "Update" << endl;
     }
 
@@ -226,7 +230,7 @@ void StatusPublisher::Refresh()
       //发布雷区
       sensor_msgs::msg::PointCloud2::Ptr barcloud_msg(new sensor_msgs::msg::PointCloud2);
       //barcloud_msg->header.stamp = current_time.fromSec(base_time_);
-      barcloud_msg->header.stamp = current_time;
+      barcloud_msg->header.stamp = base_time_;
       barcloud_msg->height = 1;
       barcloud_msg->width = barArea_nums;
       barcloud_msg->is_dense = true;
@@ -283,7 +287,7 @@ void StatusPublisher::Refresh()
       //clearcloud_msg->header.frame_id = "kinect_link_new";
 
       sensor_msgs::msg::PointCloud2::Ptr clearcloud_msg(new sensor_msgs::msg::PointCloud2);
-      clearcloud_msg->header.stamp = current_time;
+      clearcloud_msg->header.stamp = base_time_;
       clearcloud_msg->height = 1;
       clearcloud_msg->width = clearArea_nums;
       clearcloud_msg->is_dense = true;
@@ -358,7 +362,7 @@ void StatusPublisher::Refresh()
     mPowerPub->publish(CarPower);
 
     //CarOdom.header.stamp = current_time.fromSec(base_time_);
-    CarOdom.header.stamp = current_time;
+    CarOdom.header.stamp = base_time_;
     CarOdom.header.frame_id = "odom";
     CarOdom.pose.pose.position.x = CarPos2D.x;
     CarOdom.pose.pose.position.y = CarPos2D.y;
@@ -433,7 +437,7 @@ void StatusPublisher::Refresh()
 
     //static_transformStamped.transform.rotation = tf2::toMsg(q);
     static_transformStamped.transform.rotation = out;
-    static_transformStamped.header.stamp = current_time;
+    static_transformStamped.header.stamp = base_time_;
     static_transformStamped.header.frame_id = "odom";
     static_transformStamped.child_frame_id = "base_footprint";
     //发布坐标变换
