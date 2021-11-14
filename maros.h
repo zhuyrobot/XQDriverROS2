@@ -40,7 +40,7 @@
 #include <webots/PositionSensor.hpp>
 #include <webots/vehicle/Driver.hpp>
 #include <webots/utils/AnsiCodes.hpp>
-#include <webots/DifferentialWheels.hpp>
+//#include <webots/DifferentialWheels.hpp>
 #endif
 
 #if 1

@@ -32,7 +32,7 @@ class DiffDriverController
     double max_wheelspeed; //单位为转每秒,只能为正数
     std::string cmd_topic;
     StatusPublisher *xq_status;
-    XQ4IO::XQFrame* msg = 0;
+    XQ4IO::XQ4Frame* msg = 0;
     //CallbackAsyncSerial *cmd_serial;
     XQ4IO *cmd_serial;
     //boost::mutex mMutex;

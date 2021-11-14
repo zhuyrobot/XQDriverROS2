@@ -2,11 +2,13 @@ cmake_minimum_required(VERSION 3.15)
 project(xqdriver_ros2)
 
 #1.Cfg
-set(COMMON_CMAKE ${CMAKE_SOURCE_DIR}/common.cmake CACHE STRING "Common cmake file")
-if(NOT EXISTS ${COMMON_CMAKE}) 
-message(FATAL_ERROR "${COMMON_CMAKE} not exist") 
+set(CSCV_DIR /root/app/cxx/cscv CACHE STRING "cscv directory")
+set(CSCV_CFG ${CSCV_DIR}/cmaker/cscv.cmake)
+if(NOT EXISTS ${CSCV_CFG}) 
+message(FATAL_ERROR "${CSCV_CFG} not exist") 
 endif()
-include(${COMMON_CMAKE})
+include(${CSCV_CFG})
+
 find_package(rosidl_default_generators REQUIRED) ####################add1
 #2.Pro
 add_executable(xqserial_server_node 

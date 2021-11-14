@@ -104,7 +104,7 @@ class StatusPublisher
     rclcpp::Time current_time;
 
     XQ4IO *sta_serial;
-    XQ4IO::XQFrame* msg = 0;
+    XQ4IO::XQ4Frame* msg = 0;
 
     //ros::Publisher mIMUPub;
     rclcpp::Publisher<sensor_msgs::msg::Imu>::SharedPtr mIMUPub;
